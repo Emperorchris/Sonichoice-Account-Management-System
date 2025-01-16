@@ -20,6 +20,8 @@ defineProps({
     total_amount_today: String,
     total_delivery_charge: String,
     total_merchant_balance: String,
+    total_cash: String,
+    total_transfer: String,
 });
 
 const form = useForm({});
@@ -322,6 +324,24 @@ const deleteRecord = (id) => {
                         </div>
                         <div class="p-3 text-gray-900 dark:text-gray-100">
                             NGN {{ total_merchant_balance }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between">
+                        <div class="p-3 text-gray-900 dark:text-gray-100">
+                            Total Cash For Today:
+                        </div>
+                        <div class="p-3 text-gray-900 dark:text-gray-100">
+                            NGN {{ total_cash }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between">
+                        <div class="p-3 text-gray-900 dark:text-gray-100">
+                            Total Transfer For Today:
+                        </div>
+                        <div class="p-3 text-gray-900 dark:text-gray-100">
+                            NGN {{ total_transfer }}
                         </div>
                     </div>
                 </div>

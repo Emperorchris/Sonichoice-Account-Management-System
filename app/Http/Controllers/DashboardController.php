@@ -23,9 +23,22 @@ class DashboardController extends Controller
             // 'total_entries_last_30_days' => AccountEntry::whereBetween('created_at', [now()->subDays(30), now()])->count(),
 
             'total_entries' => AccountEntry::all()->count(),
-            'total_amount_today' => number_format(AccountEntry::whereDate('date', now())->sum('amount'),2),
-            'total_delivery_charge' => number_format(AccountEntry::whereDate('date', now())->sum('delivery_charge'),2),
-            'total_merchant_balance' => number_format(AccountEntry::whereDate('date', now())->sum('merchant_balance'),2),
+            'total_amount_today' => number_format(AccountEntry::whereDate('date', now())->sum('amount'), 2),
+            'total_delivery_charge' => number_format(AccountEntry::whereDate('date', now())->sum('delivery_charge'), 2),
+            'total_merchant_balance' => number_format(AccountEntry::whereDate('date', now())->sum('merchant_balance'), 2),
+            'total_cash' => number_format(
+                AccountEntry::whereDate('date', now())
+                    ->whereIn('payment_method', ['Cash', 'cash', 'CASH'])
+                    ->sum('amount'),
+                2
+            ),
+            'total_transfer' => number_format(
+                AccountEntry::whereDate('date', now())
+                    ->whereNotIn('payment_method', ['Cash', 'cash', 'CASH'])
+                    ->sum('amount'),
+                2
+            ),
+
             // 'total_merchant_balance_percentage' => AccountEntry::sum('merchant_balance') / AccountEntry::sum('amount') * 100 ?? '0',
             // 'total_rider_balance' => AccountEntry::sum('amount') - AccountEntry::sum('delivery_charge') - AccountEntry::sum('merchant_balance'),
             // 'total_rider_balance_percentage' => (AccountEntry::sum('amount') - AccountEntry::sum('delivery_charge') - AccountEntry::sum('merchant_balance')) / AccountEntry::sum('amount') * 100,
