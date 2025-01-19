@@ -162,12 +162,22 @@ const deleteRecord = (id) => {
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Product
+                            Product Name
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Amount
+                            Amount Received
+                        </th>
+                        <th
+                            class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
+                        >
+                            Product Amount
+                        </th>
+                        <th
+                            class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
+                        >
+                            Tips
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
@@ -187,12 +197,12 @@ const deleteRecord = (id) => {
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Merchant Name
+                            Group Name
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Merchant Phone
+                            Remark
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
@@ -227,7 +237,23 @@ const deleteRecord = (id) => {
                         >
                             NGN
                             {{
+                                parseFloat(today_entry.amount_received).toLocaleString()
+                            }}
+                        </td>
+                        <td
+                            class="px-6 py-4 text-sm text-white whitespace-nowrap"
+                        >
+                            NGN
+                            {{
                                 parseFloat(today_entry.amount).toLocaleString()
+                            }}
+                        </td>
+                        <td
+                            class="px-6 py-4 text-sm text-white whitespace-nowrap"
+                        >
+                            NGN
+                            {{
+                                parseFloat(today_entry.tips ?? 0).toLocaleString()
                             }}
                         </td>
                         <td
@@ -258,12 +284,12 @@ const deleteRecord = (id) => {
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
                         >
-                            {{ today_entry.merchant_name }}
+                            {{ today_entry.group_name }}
                         </td>
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
                         >
-                            {{ today_entry.merchant_phone }}
+                            {{ today_entry.remark }}
                         </td>
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"

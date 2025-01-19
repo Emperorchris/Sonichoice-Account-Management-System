@@ -19,12 +19,14 @@ const props = defineProps({
 
 const form = useForm({
     product: props.entry?.product || "",
+    amount: props.entry?.amount_received || "",
     amount: props.entry?.amount || "",
+    amount: props.entry?.tips || "",
     payment_method: props.entry?.payment_method || "",
     delivery_charge: props.entry?.delivery_charge || "",
     merchant_balance: props.entry?.merchant_balance || "",
-    merchant_name: props.entry?.merchant_name || "",
-    merchant_phone: props.entry?.merchant_phone || "",
+    merchant_name: props.entry?.group_name || "",
+    rider: props.entry?.remark || "",
     rider: props.entry?.rider || "",
 });
 
@@ -78,6 +80,20 @@ const submit = async () => {
             </div>
 
             <div class="mt-4">
+                <InputLabel for="amount_received" value="Amount Received" />
+
+                <TextInput
+                    id="amount_received"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.amount_received"
+                    autocomplete=""
+                />
+
+                <InputError class="mt-2" :message="form.errors.amount_received" />
+            </div>
+            
+            <div class="mt-4">
                 <InputLabel for="amount" value="Product Price" />
 
                 <TextInput
@@ -89,6 +105,20 @@ const submit = async () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.amount" />
+            </div>
+            
+            <div class="mt-4">
+                <InputLabel for="tips" value="Tips" />
+
+                <TextInput
+                    id="tips"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.tips"
+                    autocomplete=""
+                />
+
+                <InputError class="mt-2" :message="form.errors.tips" />
             </div>
 
             <div class="mt-4">
@@ -134,6 +164,7 @@ const submit = async () => {
                     class="mt-1 block w-full"
                     v-model="form.merchant_balance"
                     autocomplete=""
+                    readonly
                 />
 
                 <InputError
@@ -142,36 +173,31 @@ const submit = async () => {
                 />
             </div>
             <div class="mt-4">
-                <InputLabel for="merchant_name" value="Merchant Name" />
+                <InputLabel for="group_name" value="Group Name" />
 
                 <TextInput
-                    id="merchant_name"
+                    id="group_name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.merchant_name"
+                    v-model="form.group_name"
                     autocomplete=""
                 />
 
-                <InputError class="mt-2" :message="form.errors.merchant_name" />
+                <InputError class="mt-2" :message="form.errors.group_name" />
             </div>
+
             <div class="mt-4">
-                <InputLabel
-                    for="merchant_phone"
-                    value="Merchant Phone Number"
-                />
+                <InputLabel for="remark" value="Remark" />
 
                 <TextInput
-                    id="merchant_phone"
+                    id="remark"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.merchant_phone"
+                    v-model="form.remark"
                     autocomplete=""
                 />
 
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.merchant_phone"
-                />
+                <InputError class="mt-2" :message="form.errors.remark" />
             </div>
 
             <div class="mt-4">

@@ -8,6 +8,7 @@ import PageHeading from "@/Components/PageHeading.vue";
 import FlashMessage from "@/Components/FlashMessage.vue";
 import Footer from '@/Components/Footer.vue'
 import { Head, Link, useForm } from "@inertiajs/vue3";
+import { watch } from "vue";
 
 defineOptions({
     layout: AuthenticatedLayout,
@@ -15,13 +16,21 @@ defineOptions({
 
 const form = useForm({
     product: "",
+    amount_received: "",
     amount: "",
+    tips: "",
     payment_method: "",
     delivery_charge: "",
     merchant_balance: "",
-    merchant_name: "",
-    merchant_phone: "",
+    group_name: "",
+    remark: "",
     rider: "",
+});
+
+// Watch for changes in `amount` or `delivery_charge` and update `merchant_balance`
+watch(() => [form.amount, form.delivery_charge], ([amount, deliveryCharge]) => {
+    const calculatedBalance = parseFloat(amount || 0) - parseFloat(deliveryCharge || 0);
+    form.merchant_balance = isNaN(calculatedBalance) ? "" : calculatedBalance;
 });
 
 const submit = async () => {
@@ -74,6 +83,20 @@ const submit = async () => {
             </div>
 
             <div class="mt-4">
+                <InputLabel for="amount_received" value="Amount Received" />
+
+                <TextInput
+                    id="amount_received"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.amount_received"
+                    autocomplete=""
+                />
+
+                <InputError class="mt-2" :message="form.errors.amount_received" />
+            </div>
+            
+            <div class="mt-4">
                 <InputLabel for="amount" value="Product Price" />
 
                 <TextInput
@@ -85,6 +108,20 @@ const submit = async () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.amount" />
+            </div>
+            
+            <div class="mt-4">
+                <InputLabel for="tips" value="Tips" />
+
+                <TextInput
+                    id="tips"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.tips"
+                    autocomplete=""
+                />
+
+                <InputError class="mt-2" :message="form.errors.tips" />
             </div>
 
             <div class="mt-4">
@@ -130,6 +167,7 @@ const submit = async () => {
                     class="mt-1 block w-full"
                     v-model="form.merchant_balance"
                     autocomplete=""
+                    readonly
                 />
 
                 <InputError
@@ -138,36 +176,31 @@ const submit = async () => {
                 />
             </div>
             <div class="mt-4">
-                <InputLabel for="merchant_name" value="Merchant Name" />
+                <InputLabel for="group_name" value="Group Name" />
 
                 <TextInput
-                    id="merchant_name"
+                    id="group_name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.merchant_name"
+                    v-model="form.group_name"
                     autocomplete=""
                 />
 
-                <InputError class="mt-2" :message="form.errors.merchant_name" />
+                <InputError class="mt-2" :message="form.errors.group_name" />
             </div>
+
             <div class="mt-4">
-                <InputLabel
-                    for="merchant_phone"
-                    value="Merchant Phone Number"
-                />
+                <InputLabel for="remark" value="Remark" />
 
                 <TextInput
-                    id="merchant_phone"
+                    id="remark"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.merchant_phone"
+                    v-model="form.remark"
                     autocomplete=""
                 />
 
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.merchant_phone"
-                />
+                <InputError class="mt-2" :message="form.errors.remark" />
             </div>
 
             <div class="mt-4">

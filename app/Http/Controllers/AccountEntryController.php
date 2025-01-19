@@ -39,23 +39,27 @@ class AccountEntryController extends Controller
         $validated = request()->validate([
             'product' => "required|string|max:255",
             'amount' => "required|numeric",
+            'amount_received' => "required|numeric",
+            'tips' => "nullable|numeric",
             'payment_method' => "required|string|max:255",
             'delivery_charge' => "required|numeric",
             'merchant_balance' => "required|numeric",
-            'merchant_name' => "required|string|max:255",
-            'merchant_phone' => "required|string|max:255",
+            'group_name' => "required|string|max:255",
             'rider' => "required|string|max:255",
+            'remark' => "nullable|string|max:255",
         ]);
 
         $entries = AccountEntry::create([
             'product' => $validated['product'],
             'amount' => $validated['amount'],
+            'amount_received' => $validated['amount_received'],
+            'tips' => $validated['tips'] ?? null,
             'payment_method' => $validated['payment_method'],
             'delivery_charge' => $validated['delivery_charge'],
             'merchant_balance' => $validated['merchant_balance'],
-            'merchant_name' => $validated['merchant_name'],
-            'merchant_phone' => $validated['merchant_phone'],
+            'group_name' => $validated['group_name'],
             'rider' => $validated['rider'],
+            'remark' => $validated['remark'] ?? null,
             'date' => now(),
         ]);
 
@@ -97,25 +101,29 @@ class AccountEntryController extends Controller
         $validated = request()->validate([
             'product' => "required|string|max:255",
             'amount' => "required|numeric",
+            'amount_received' => "required|numeric",
+            'tips' => "nullable|numeric",
             'payment_method' => "required|string|max:255",
             'delivery_charge' => "required|numeric",
             'merchant_balance' => "required|numeric",
-            'merchant_name' => "required|string|max:255",
-            'merchant_phone' => "required|string|max:255",
+            'group_name' => "required|string|max:255",
             'rider' => "required|string|max:255",
+            'remark' => "nullable|string|max:255",
         ]);
 
         $entries = $accountEntry->update([
             'product' => $validated['product'],
             'amount' => $validated['amount'],
+            'amount_received' => $validated['amount_received'],
+            'tips' => $validated['tips'] ?? null,
             'payment_method' => $validated['payment_method'],
             'delivery_charge' => $validated['delivery_charge'],
             'merchant_balance' => $validated['merchant_balance'],
-            'merchant_name' => $validated['merchant_name'],
-            'merchant_phone' => $validated['merchant_phone'],
+            'group_name' => $validated['group_name'],
             'rider' => $validated['rider'],
+            'remark' => $validated['remark'] ?? null,
             'updated_at' => now(),
-        ]);
+        ]); 
 
         if (!$entries) {
             return redirect()->back()->with('error', 'Failed to Update Account Entry');

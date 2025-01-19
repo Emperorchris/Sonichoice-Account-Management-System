@@ -55,12 +55,22 @@ const deleteRecord = (id) => {
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Product
+                            Product Name
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Amount
+                            Amount Received
+                        </th>
+                        <th
+                            class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
+                        >
+                            Product Amount
+                        </th>
+                        <th
+                            class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
+                        >
+                            Tips
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
@@ -80,12 +90,12 @@ const deleteRecord = (id) => {
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Merchant Name
+                            Group Name
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
                         >
-                            Merchant Phone
+                            Remark
                         </th>
                         <th
                             class="px-6 py-3 text-left text-sm font-medium text-gray-200 dark:text-gray-300 whitespace-nowrap"
@@ -105,7 +115,7 @@ const deleteRecord = (id) => {
                         :key="entry.id"
                         class="even:bg-gray-700 hover:bg-gray-600"
                     >
-                        <td
+                    <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
                         >
                             <FormatDate :date="entry.date" />
@@ -119,7 +129,25 @@ const deleteRecord = (id) => {
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
                         >
                             NGN
-                            {{ parseFloat(entry.amount).toLocaleString() }}
+                            {{
+                                parseFloat(entry.amount_received).toLocaleString()
+                            }}
+                        </td>
+                        <td
+                            class="px-6 py-4 text-sm text-white whitespace-nowrap"
+                        >
+                            NGN
+                            {{
+                                parseFloat(entry.amount).toLocaleString()
+                            }}
+                        </td>
+                        <td
+                            class="px-6 py-4 text-sm text-white whitespace-nowrap"
+                        >
+                            NGN
+                            {{
+                                parseFloat(entry.tips ?? 0).toLocaleString()
+                            }}
                         </td>
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
@@ -149,12 +177,12 @@ const deleteRecord = (id) => {
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
                         >
-                            {{ entry.merchant_name }}
+                            {{ entry.group_name }}
                         </td>
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
                         >
-                            {{ entry.merchant_phone }}
+                            {{ entry.remark }}
                         </td>
                         <td
                             class="px-6 py-4 text-sm text-white whitespace-nowrap"
